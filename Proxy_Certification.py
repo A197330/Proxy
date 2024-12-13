@@ -1,7 +1,16 @@
 # Set the path for the SSL certificate and proxy settings  
 
-# Before run the following code, check the exact name of certificate in your env by run the following in terminal
+# 1.1Before run the following code, check the exact name of certificate in your env by run the following in terminal
 $ ls /etc/ssl/certs/
+
+# 1.2cor run the following code directly in Jupyter Notebook
+os.getenv("SSL_CERT_FILE")
+
+# 1.3 or this is a whole way to check the "SSL_CERT_FILE"
+if not os.getenv("SSL_CERT_FILE"):
+    if not (cert := os.getenv("REQUESTS_CA_BUNDLE") or os.getenv("CURL_CA_BUNDLE")):
+        cert = str(input("Please provide location to SSL certificate file:"))
+    os.environ["SSL_CERT_FILE"] = cert
 
 ## If you want to check what kinds of env with "proxy" in your env. run the following in the terminal
 $ env | grep -i 'proxy'
@@ -15,3 +24,9 @@ os.environ["HTTP_PROXY"] = "http://klientkache.3d.prci.com:8080"
 os.environ["HTTPS_PROXY"] = "http://klientkache.3d.prci.com:8080"  
 os.environ["http_proxy"] = "http://klientkache.3d.prci.com:8080"  
 os.environ["https_proxy"] = "http://klientkache.3d.prci.com:8080"  
+
+os.environ["HTTP_PROXY"] = "http://servercache:55000"
+os.environ["HTTPS_PROXY"] = "http://servercache:55000"
+os.environ["http_proxy"] = "http://servercache:55000"
+os.environ["https_proxy"] = "http://servercache:55000"
+
